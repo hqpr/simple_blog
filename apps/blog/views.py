@@ -96,8 +96,10 @@ class EditBlogPostView(LoginRequiredMixin, UpdateView):
     form_class = BlogForm
 
     def dispatch(self, request, *args, **kwargs):
+        if self.request.user.is_superuser:
+            return super().dispatch(request, *args, **kwargs)
         obj = self.get_object()
-        if obj.author != self.request.user or not self.request.user.is_superuser:
+        if obj.author != self.request.user:
             return HttpResponseForbidden()
         else:
             return super().dispatch(request, *args, **kwargs)
