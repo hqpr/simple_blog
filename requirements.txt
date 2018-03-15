@@ -3,4 +3,4 @@ Pillow==5.0.0
 django-crispy-forms==1.7.2
 django-allauth==0.35.0
 django-haystack==2.8.0
-elasticsearch==6.1.1
+elasticsearch==2.0.0
