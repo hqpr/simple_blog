@@ -1,0 +1,12 @@
+{% load blog_tags %}
+
+{% for blog in posts %}
+  <div>
+    <h1><a href="{% url 'single_blog_post' blog.pk %}">{{ blog.title|title }}</a></h1>
+    <small>posted on {{ blog.created_at }}
+      {% category_list blog.category.all %}
+      by: <a href="{% url 'by_author' blog.author.pk %}">{{ blog.author }}</a></small>
+    <p>{{ blog.text|truncatechars:"100" }}</p>
+  </div>
+  <hr>
+{% endfor %}

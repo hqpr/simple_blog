@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{% endblock %} | MyBlog </title>
+
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  {% block extra_css %}{% endblock extra_css %}
+</head>
+<body>
+
+{% include 'includes/navbar.html' %}
+
+<div class="container">
+{% block content %}{% endblock content %}
+</div>
+
+<script src="{% static 'bootstrap/js/jquery-3.1.1.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+{% block extra_js %}{% endblock extra_js %}
+</body>
+</html>
