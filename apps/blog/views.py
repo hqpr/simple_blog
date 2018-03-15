@@ -1,7 +1,6 @@
 import operator
 from functools import reduce
 
-import requests
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -140,9 +139,23 @@ class SimplerBlogSearchView(ListView):
 @csrf_exempt
 def load_more(request):
     page = request.POST.get('page')
-    posts = Blog.objects.filter(published=True)[:3]
-    results_per_page = 3
-    paginator = Paginator(posts, results_per_page)
+    url = request.POST.get('url')
+
+    posts = Blog.objects.filter(published=True).order_by('-created_at')
+
+    try:
+        item_id = url.split('/')[-2]
+        page_type = url.split('/')[-3]
+
+        if all([url, item_id, page_type]):
+            if page_type == 'author':
+                posts = Blog.objects.filter(published=True, author_id=item_id).order_by('-created_at')
+            elif page_type == 'category':
+                posts = Blog.objects.filter(published=True, category__in=item_id).order_by('-created_at')
+    except IndexError:
+        pass
+
+    paginator = Paginator(posts, 3)
     try:
         posts = paginator.page(page)
     except PageNotAnInteger:

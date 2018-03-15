@@ -18,10 +18,10 @@
       {% include 'blog/posts.html' %}
     </div>
 
-    <a class="btn btn-default" id="loadMoreLink" href="javascript:void(0);" data-page="2">Load More Posts</a>
-
 
   {% if is_paginated %}
+    <a class="btn btn-default" id="loadMoreLink" href="javascript:void(0);" data-page="2"
+       data-url="{{ current_path }}">Load More Posts</a>
     <div class="text-center">
       <ul class="pagination pagination-sm">
         {% if page_obj.number >= 5 %}
