@@ -8,8 +8,14 @@
       <h1>{{ object.title|title }}</h1>
       <small>Author: <a href="{% url 'by_author' blog.author.id %}">{{ blog.author }}</a></small>
       {% category_list blog.category.all %}
-
-      <p>{{ object.text }}</p>
+      <div class="row">
+        {% if blog.preview %}
+          <div class="col-md-8"><p>{{ object.text }}</p></div>
+          <div class="col-md-4"><img src="{{ blog.preview.url }}" class="img-responsive" alt=""></div>
+        {% else %}
+          <div class="col-md-8"><p>{{ object.text }}</p></div>
+        {% endif %}
+      </div>
     </div>
     {% if request.user.is_authenticated %}
       {% if is_owner or request.user.is_superuser %}

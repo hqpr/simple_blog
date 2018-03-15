@@ -4,7 +4,7 @@
 
 {% block content %}
   {% for blog in object_list %}
-    <div>
+    <div class="row">
       <h1><a href="{% url 'single_blog_post' blog.pk %}">{{ blog.title|title }}</a></h1>
       <small>posted on {{ blog.created_at }}
         {% category_list blog.category.all %}
@@ -14,9 +14,9 @@
     <hr>
   {% endfor %}
 
-    <div id="posts">
-      {% include 'blog/posts.html' %}
-    </div>
+  <div id="posts">
+    {% include 'blog/posts.html' %}
+  </div>
 
 
   {% if is_paginated %}
